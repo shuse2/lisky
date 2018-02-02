@@ -40,15 +40,15 @@ const BOOLEANS = {
 	false: false,
 };
 
-const regExpQuotes = /"((.|\n|\s\S)+?)"/;
+const regExpQuotes = /(["'])((.|\n|[^\\s\S])+?)\1/;
 const regExpNumbers = /\d+(.\d+)?/;
 const regExpBooleans = /(true|false)/;
 
-export const getFirstQuotedString = title => title.match(regExpQuotes)[1];
+export const getFirstQuotedString = title => title.match(regExpQuotes)[2];
 
 export const getQuotedStrings = title => {
 	const globalRegExp = new RegExp(regExpQuotes, 'g');
-	return title.match(globalRegExp).map(match => match.match(regExpQuotes)[1]);
+	return title.match(globalRegExp).map(match => match.match(regExpQuotes)[2]);
 };
 
 export const getFirstNumber = title => Number(title.match(regExpNumbers)[0]);
