@@ -113,6 +113,18 @@ export function theSignatureShouldBeReturned() {
 	return returnValue.should.be.eql(signature);
 }
 
+export function theSignedTransactionShouldBeReturned() {
+	const { returnValue, transaction } = this.test.ctx;
+	const expectedKeys = [
+		...Object.keys(transaction),
+		'id',
+		'signature',
+		'senderId',
+		'senderSecondPublicKey',
+	];
+	return Object.keys(returnValue).should.containDeep(expectedKeys);
+}
+
 export function liskJSCryptoShouldBeUsedToSignTheMessage() {
 	const { message, passphrase } = this.test.ctx;
 	return lisk.crypto.signMessageWithPassphrase.should.be.calledWithExactly(
