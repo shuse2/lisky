@@ -25,7 +25,20 @@ export function itShouldSignTheMessageWithThePassphrase() {
 	});
 }
 
+export function itShouldSignTheTransactionWithThePassphrase() {
+	const { transaction, passphrase } = this.test.ctx;
+	return cryptoInstance.signTransaction.should.be.calledWithExactly({
+		transaction,
+		passphrase,
+	});
+}
+
 export function itShouldResolveToTheResultOfSigningTheMessage() {
+	const { returnValue, cryptoResult } = this.test.ctx;
+	return returnValue.should.be.fulfilledWith(cryptoResult);
+}
+
+export function itShouldResolveToTheResultOfSigningTheTransaction() {
 	const { returnValue, cryptoResult } = this.test.ctx;
 	return returnValue.should.be.fulfilledWith(cryptoResult);
 }
