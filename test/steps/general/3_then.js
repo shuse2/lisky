@@ -35,13 +35,13 @@ export function itShouldReturnTheResult() {
 export function itShouldThrowValidationError() {
 	const { testFunction } = this.test.ctx;
 	const message = getFirstQuotedString(this.test.title);
-	return testFunction.should.throw(new ValidationError(message));
+	return testFunction.should.throw(ValidationError, message);
 }
 
 export function itShouldThrowFileSystemError() {
 	const { testFunction } = this.test.ctx;
 	const message = getFirstQuotedString(this.test.title);
-	return testFunction.should.throw(new FileSystemError(message));
+	return testFunction.should.throw(FileSystemError, message);
 }
 
 export function itShouldExitWithCode() {
