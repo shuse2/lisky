@@ -13,19 +13,23 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import * as given from '../../steps/1_given';
-import * as when from '../../steps/2_when';
-import * as then from '../../steps/3_then';
+import { Command, flags as flager } from '@oclif/command';
 
-describe('config command', () => {
-	Given('a config', given.aConfig, () => {
-		Given('an action "config"', given.anAction, () => {
-			When('the action is called', when.theActionIsCalled, () => {
-				Then(
-					'it should resolve to the config',
-					then.itShouldResolveToTheConfig,
-				);
-			});
-		});
-	});
-});
+export default class Hello extends Command {
+	async run() {
+		const { flags } = this.parse(Hello);
+
+		const name = flags.name || 'world';
+		this.log(`hello ${name} from ./src/commands/hello.js`);
+	}
+}
+
+Hello.description = `
+Describe the command here
+...
+Extra documentation goes here
+`;
+
+Hello.flags = {
+	name: flager.string({ char: 'n', description: 'name to print' }),
+};

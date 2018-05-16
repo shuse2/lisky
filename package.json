@@ -15,12 +15,19 @@
 		"url": "https://github.com/LiskHQ/lisky/issues"
 	},
 	"engines": {
-		"node": "=6.14.1",
-		"npm": "=3.10.10"
+		"node": ">=8.0 <=9.5",
+		"npm": "5"
 	},
-	"directories": {
-		"bin": "./bin"
+	"bin": {
+		"lisk": "./bin/run"
 	},
+	"files": ["/.oclif.manifest.json", "/bin", "/src"],
+	"oclif": {
+		"commands": "./dist/commands",
+		"bin": "lisk",
+		"plugins": ["@oclif/plugin-help"]
+	},
+	"main": "dist/index.js",
 	"scripts": {
 		"start": "babel-node src/index.js",
 		"format":
@@ -29,7 +36,7 @@
 		"lint:fix": "npm run lint -- --fix",
 		"test":
 			"if [ -z $JENKINS_HOME ]; then npm run test:local; else npm run test:ci; fi",
-		"test:local": "NODE_ENV=test nyc mocha test/specs",
+		"test:local": "NODE_ENV=test nyc mocha test",
 		"test:ci":
 			"NODE_ENV=test nyc --exclude \"**/node_modules/** coverage/**\" mocha test/specs",
 		"test:watch": "npm run test:local -- --watch",
@@ -51,36 +58,42 @@
 			"rm -r ./node_modules && npm install && npm run prepush && npm run build"
 	},
 	"dependencies": {
-		"babel-polyfill": "=6.26.0",
-		"bip39": "=2.4.0",
-		"chalk": "=2.3.0",
-		"cli-table2": "LiskHQ/cli-table2#187c6ae80b9d963c598d0cb3379153387bfb15c4",
-		"lisk-js": "=1.0.0-beta.2",
-		"lockfile": "=1.0.3",
-		"semver": "=5.5.0",
-		"strip-ansi": "=4.0.0",
-		"vorpal": "LiskHQ/vorpal#v1.0.0-lisk"
+		"babel-runtime": "6.26.0",
+		"bip39": "2.4.0",
+		"lisk-elements": "1.0.0-beta.3",
+		"lockfile": "1.0.3",
+		"semver": "5.5.0",
+		"strip-ansi": "4.0.0",
+		"@oclif/command": "1.4.30",
+		"@oclif/config": "1.6.18",
+		"@oclif/plugin-help": "1.2.11"
 	},
 	"devDependencies": {
-		"babel-cli": "=6.26.0",
-		"babel-plugin-istanbul": "=4.1.5",
-		"babel-preset-env": "=1.6.1",
-		"babel-register": "=6.26.0",
-		"chai": "=4.1.2",
-		"chai-as-promised": "=7.1.1",
-		"coveralls": "=3.0.0",
-		"eslint": "=4.16.0",
-		"eslint-config-airbnb-base": "=12.1.0",
-		"eslint-config-lisk-base": "=1.0.0",
-		"eslint-plugin-import": "=2.8.0",
-		"eslint-plugin-mocha": "=4.11.0",
-		"husky": "=0.14.3",
-		"lint-staged": "=5.0.0",
-		"mocha": "=4.0.1",
-		"mocha-bdd": "=0.1.2",
-		"nyc": "=11.3.0",
-		"prettier": "=1.9.2",
-		"sinon": "=4.1.2",
-		"sinon-chai": "=2.14.0"
+		"@oclif/dev-cli": "1.13.22",
+		"@oclif/test": "1.0.6",
+		"babel-cli": "=6.24.1",
+		"babel-plugin-istanbul": "4.1.4",
+		"babel-plugin-module-resolver": "3.0.0",
+		"babel-plugin-rewire": "1.1.0",
+		"babel-plugin-transform-runtime": "6.23.0",
+		"babel-preset-env": "1.6.0",
+		"babel-register": "6.26.0",
+		"chai": "4.1.2",
+		"chai-as-promised": "7.1.1",
+		"coveralls": "3.0.0",
+		"eslint": "4.16.0",
+		"eslint-config-airbnb-base": "12.1.0",
+		"eslint-config-lisk-base": "1.0.0",
+		"eslint-config-oclif": "1.5.0",
+		"eslint-plugin-import": "2.8.0",
+		"eslint-plugin-mocha": "4.11.0",
+		"globby": "8.0.1",
+		"husky": "0.14.3",
+		"lint-staged": "5.0.0",
+		"mocha": "5.1.1",
+		"nyc": "11.8.0",
+		"prettier": "1.9.2",
+		"sinon": "4.1.2",
+		"sinon-chai": "2.14.0"
 	}
 }

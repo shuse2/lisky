@@ -14,13 +14,11 @@
  *
  */
 import os from 'os';
-import 'babel-polyfill';
 import chai, { Assertion } from 'chai';
 import 'chai/register-expect';
 import chaiAsPromised from 'chai-as-promised';
 import sinonChai from 'sinon-chai';
 import sinon from 'sinon';
-import mochaBDD from 'mocha-bdd';
 
 process.env.NODE_ENV = 'test';
 process.env.LISKY_CONFIG_DIR =
@@ -46,8 +44,6 @@ Assertion.addMethod('customError', function handleAssert(error) {
 	new Assertion(obj.message).to.equal(error.message);
 });
 /* eslint-enable no-underscore-dangle */
-
-mochaBDD();
 
 [sinonChai, chaiAsPromised].forEach(chai.use);
 
