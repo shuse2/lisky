@@ -13,6 +13,6 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import lisk from 'lisk-js';
+import lisk from 'lisk-elements';
 
 export default lisk.transaction;

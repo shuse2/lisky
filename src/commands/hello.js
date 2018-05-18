@@ -13,14 +13,27 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
+import readline from 'readline';
 import { Command, flags as flager } from '@oclif/command';
+
+const getStdin = async () => {
+	const rl = readline.createInterface({ input: process.stdin });
+	const lines = [];
+	return new Promise(resolve => {
+		rl.on('line', line => lines.push(line)).on('close', () => {
+			resolve(lines);
+		});
+	});
+};
 
 export default class Hello extends Command {
 	async run() {
-		const { flags } = this.parse(Hello);
+		const { args, flags } = this.parse(Hello);
+
+		const stdin = await getStdin();
 
 		const name = flags.name || 'world';
-		this.log(`hello ${name} from ./src/commands/hello.js`);
+		this.log(`hello ${name} from ./src/commands/hello.js ${args.piped} ${stdin}`);
 	}
 }
 
@@ -33,3 +46,10 @@ Extra documentation goes here
 Hello.flags = {
 	name: flager.string({ char: 'n', description: 'name to print' }),
 };
+
+Hello.args = [
+	{
+		name: 'piped',
+		default: 'non-piped',
+	},
+];
